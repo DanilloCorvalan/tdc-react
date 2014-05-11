@@ -23,8 +23,6 @@ React.renderComponent(<HelloMessage />, document.getElementById('main'));
 python -m SimpleHTTPServer
 ```
 
-
-
 ##Hello world, properties
 
 ```javascript
@@ -71,3 +69,4 @@ React.renderComponent(
 );
 
 ```
+
