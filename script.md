@@ -3,7 +3,7 @@
 - Criar arquivo hello-component.js
 - Adicionar no index.html, após div main
 ```xml
-    <script src='hello-component.js' type='text/jsx'></script>
+  <script src='hello-component.js' type='text/jsx'></script>
 ```
 - editar o arquivo com o seguinte código
 
@@ -48,12 +48,14 @@ React.renderComponent(
 
 var HelloPage = React.createClass({
   render: function () {
-    return <div>
-             <h1>Hello Page</h1>
-             <HelloMessage name="Trilha Javascript" />
-             <HelloMessage name="Trilha Web" />
-             <HelloMessage name="Trilha Mobile" />
-           </div>;
+    return ( 
+      <div>
+        <h1>Hello Page</h1>
+        <HelloMessage name="Trilha Javascript" />
+        <HelloMessage name="Trilha Web" />
+        <HelloMessage name="Trilha Mobile" />
+      </div>
+    );
   }
 });
 
@@ -70,3 +72,78 @@ React.renderComponent(
 
 ```
 
+##Stateful Components
+
+**Passo 1**
+```javascript
+getInitialState: function () {
+  return { name: '' };
+}
+```
+
+**Passo 2**
+```javascript
+render: function () {
+  return (
+    <div>
+      <h3>Hello {this.state.name}</h3>
+
+      <div>
+        <input type="text" ref="name" onChange={this.handleChange} />
+      </div>
+    </div>
+  );
+}
+```
+
+**Passo 3**
+```javascript
+handleChange: function () {
+  this.setState({ name: this.refs.name.getDOMNode().value });
+},
+```
+
+##Stateful Completo
+
+```javascript
+/** @jsx React.DOM */
+
+var HelloPage = React.createClass({
+  render: function () {
+    return (
+      <div>
+        <h1>Hello Page</h1>
+        <HelloMessage />
+        <HelloMessage />
+        <HelloMessage />
+      </div>
+    );
+  }
+});
+
+var HelloMessage = React.createClass({
+  getInitialState: function () {
+    return { name: '' };
+  },
+  handleChange: function () {
+    this.setState({ name: this.refs.name.getDOMNode().value });
+  },
+  render: function () {
+    return (
+      <div>
+        <h3>Hello {this.state.name}</h3>
+
+        <div>
+          <input type="text" ref="name" onChange={this.handleChange} />
+        </div>
+      </div>
+    );
+  }
+});
+
+React.renderComponent(
+  <HelloPage />,
+  document.getElementById('main')
+);
+
+```
